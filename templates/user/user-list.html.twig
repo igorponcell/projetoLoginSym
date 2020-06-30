@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="/user/signup">Create User</a>
+    <ul>
+        <div>
+
+        <label>Users</label>
+        {% for user in users %}
+            <li> {{ user.name }} {{ user.age }} {{ user.login }} {{ user.mail }} </li>
+            <a href="/user/remove/{{ user.id }}">Delete</a>
+            <a href="/user/edit/{{ user.id }}">Edit</a>
+        {% endfor %}
+        </div>
+    </ul>
+
+    <a href="/"> Log Out</a>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
