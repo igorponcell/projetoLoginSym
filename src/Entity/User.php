@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="users")_
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -30,12 +30,12 @@ class User implements UserInterface
     private $age;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $mail;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $login;
 
@@ -104,7 +104,7 @@ class User implements UserInterface
 
     public function setPassword(string $password): self
     {
-        $this->password = $password;
+        $this->password = md5($password);
 
         return $this;
     }
@@ -112,21 +112,44 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        return [
+            'ROLE_USER'
+        ];
     }
 
     public function getSalt()
     {
-        // TODO: Implement getSalt() method.
     }
 
     public function getUsername()
     {
-        // TODO: Implement getUsername() method.
     }
 
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->name,
+            $this->age,
+            $this->mail,
+            $this->login,
+            $this->password
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->name,
+            $this->age,
+            $this->mail,
+            $this->login,
+            $this->password
+            ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

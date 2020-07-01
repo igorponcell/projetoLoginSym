@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <style>
+        .error {
+            color:red;
+        }
+    </style>
+    <div class="container">
+    <h1>Welcolme !!</h1>
+
+    {% if error %}
+        <span class="error">{{ error.messageKey }}</span>
+    {% endif %}
+        <form action="{{ path('login') }}" method="Post">
+            <p>
+                <label>login</label>
+                <input type="text" name="_username" value="{{ last_username }}">
+            </p>
+            <p>
+                <label>password</label>
+                <input type="password" name="_password">
+            </p>
+
+            <button type="submit" class="btn btn-primary" >Login</button>
+            <span>Not registered? Sign up <a href="user/signup">Here</a>!</span>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block title %}
+Projeto Login PHP
+{% endblock %}
