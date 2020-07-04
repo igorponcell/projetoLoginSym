@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,10 +16,10 @@ class SecurityController extends AbstractController
         $errors = $utils->getLastAuthenticationError();
         $lastUsername = $utils->getLastUsername();
 
-            return $this->render('security/index.html.twig', [
-                "error" => $errors,
-                "last_username" => $lastUsername
-            ]);
+        return $this->render('security/index.html.twig', [
+            "error" => $errors,
+            "last_username" => $lastUsername
+        ]);
     }
 
     /**

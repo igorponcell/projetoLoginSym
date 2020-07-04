@@ -19,10 +19,8 @@ class UserController extends AbstractController
      */
     public function index()
     {
-
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        return $this->redirect("/user/user-list");
+        return $this->showUsers();
     }
 
     /**
@@ -37,22 +35,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="login")
-     */
-    public function login(Request $request) {
-        $user = $this->getDoctrine()->getRepository('App:User')->findOneBy(['login' => $_POST['login'], 'password' => md5($_POST['password'])]);
-
-        if ($user !== null){
-            return $this->redirect("/user/user-list");
-            return $this->showUsers();
-        } else {
-            return $this->redirect("/");
-            return $this->render("index.html.twig");
-        }
-    }
-
-    /**
-     * @Route("/signup", name="signup")
+     * @Route("/create", name="create")
      */
     public function addUser(Request $request)
     {
@@ -66,6 +49,8 @@ class UserController extends AbstractController
             $doctrine = $this->getDoctrine()->getManager();
             $doctrine->persist($user);
             $doctrine->flush();
+
+            return $this->redirect('/user/user-list/');
 
         }
 

@@ -10,6 +10,6 @@ class DefaultController extends AbstractController {
     * @Route("/")
     */
     public function index() {
-        return $this->render("index.html.twig");
+        return $this->redirect("/login");
     }
 }
