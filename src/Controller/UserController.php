@@ -28,9 +28,10 @@ class UserController extends AbstractController
      */
     public function showUsers() {
         $users = $this->getDoctrine()->getRepository('App:User')->findAll();
-
+        $loggedUser = $this->getUser();
         return $this->render('user/user-list.html.twig', [
             'users' => $users,
+            'loggedUser' => $loggedUser,
         ]);
     }
 

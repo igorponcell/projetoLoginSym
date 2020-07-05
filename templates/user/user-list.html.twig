@@ -1,17 +1,44 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <style>
+        label {
+            font-weight: bold;
+        }
+        li {
+            list-style: none;
+        }
+
+        .user-container {
+            border: 1px solid darkturquoise;
+            margin: 10px 0;
+        }
+
+        a {
+            margin: 10px 0;
+        }
+    </style>
     <div  class="container">
 
     <a href="/user/create" class="btn btn-success" >Create User</a>
+
     <ul>
         <div>
 
         <label>Users</label>
         {% for user in users %}
-            <li> {{ user.name }} {{ user.age }} {{ user.login }} {{ user.mail }} </li>
-            <a href="/user/remove/{{ user.id }}" class="btn btn-danger">Delete</a>
-            <a href="/user/edit/{{ user.id }}" class="btn btn-info">Edit</a>
+            <li>
+                <div class="container user-container">
+                    <label>Name:</label> <span>{{ user.name }}</span></br>
+                    <label>Age:</label>  <span>{{ user.age }}</span></br>
+                    <label>Login:</label>  <span>{{ user.login }}</span></br>
+                    <label>Email:</label> <span>{{ user.mail }}</span></br>
+                    {% if loggedUser.id is not same as(user.id)  %}
+                    <a href="/user/remove/{{ user.id }}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                    <a href="/user/edit/{{ user.id }}" class="btn btn-info">Edit</a>
+                </div>
+            </li>
         {% endfor %}
         </div>
     </ul>

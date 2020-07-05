@@ -22,7 +22,7 @@ class UserFixture extends Fixture
         $user->setAge('18');
         $user->setMail('admin@admin.com');
         $user->setLogin('admin');
-        $user->setPassword($this->encoder->encodePassword($user, '123456'));
+        $user->setPassword($this->encoder->encodePassword($user, 'admin'));
 
         $manager->persist($user);
         $manager->flush();
